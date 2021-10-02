@@ -2,3 +2,5 @@ Base path: '/home/jonas/Data/Downloads/SOFTWARE/Unity/2020.3.19f1/Editor/Data', 
 Cmd: initializeCompiler
 
 Cmd: shutdown
+
+Quitting shader compiler process

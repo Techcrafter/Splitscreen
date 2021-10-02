@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - KillPlayer
+  - LevelExit
   layers:
   - Default
   - TransparentFX
@@ -38,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background2
+    uniqueID: 2153300995
+    locked: 0
+  - name: Background
+    uniqueID: 188969985
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Front
+    uniqueID: 2772000611
     locked: 0
