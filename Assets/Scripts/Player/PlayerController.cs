@@ -23,9 +23,6 @@ public class PlayerController : MonoBehaviour
     float OldY;
     int Grounded;
     
-    public AudioSource DieAudio;
-    public AudioSource LevelCompletedAudio;
-    
     public GameObject LoadingText;
     
     // Start is called before the first frame update
@@ -87,7 +84,11 @@ public class PlayerController : MonoBehaviour
             JumpCount = 0;
         }
         
-        if(OldY < transform.position.y + 0.05f || OldY > transform.position.y - 0.05f)
+        if(OldY < transform.position.y + 0.05f && OldY > transform.position.y - 0.05f)
+        {
+            Grounded = 1;
+        }
+        else if(OldY == transform.position.y)
         {
             Grounded = 1;
         }
@@ -102,6 +103,10 @@ public class PlayerController : MonoBehaviour
         {
             JumpCount = JumpHeight;
         }
+        else if(!Input.GetKey(KeyCode.Space) && JumpCount > 0)
+        {
+            JumpCount = 0;
+        }
         
         if(JumpCount > 0)
         {
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
             Grounded = 0;
         }
         
-        if(Grounded == 0)
+        if(Grounded == 0 && JumpCount > 0)
         {
             if(MoveLeft == 0)
             {
@@ -147,20 +152,21 @@ public class PlayerController : MonoBehaviour
     
     void die()
     {
-        DieAudio.GetComponent<AudioSource>().Play();
+        GameObject.Find("DieAudio").GetComponent<AudioSource>().Play();
         if(SceneManager.GetActiveScene().name == "Level1")
         {
             transform.position = new Vector2(PlayerPrefs.GetFloat("PlayerStartPosX"), PlayerPrefs.GetFloat("PlayerStartPosY"));
         }
         else
         {
+            LoadingText.SetActive(true);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         }
     }
     
     void levelCompleted()
     {
-        LevelCompletedAudio.GetComponent<AudioSource>().Play();
+        GameObject.Find("LevelCompletedAudio").GetComponent<AudioSource>().Play();
         LoadingText.SetActive(true);
         
         switch(SceneManager.GetActiveScene().name)
